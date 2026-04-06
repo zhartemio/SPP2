@@ -1,99 +1,100 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
 namespace Faker.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class FakerTests
     {
         private Faker faker;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             faker = new Faker();
         }
 
-        [Test]
+        [TestMethod]
         public void Create_Int_ReturnsNonDefault()
         {
             int value = faker.Create<int>();
-            Assert.That(value, Is.Not.EqualTo(0));
+            Assert.AreNotEqual(0, value);
         }
 
-        [Test]
+        [TestMethod]
         public void Create_String_ReturnsNonEmpty()
         {
             string value = faker.Create<string>();
-            Assert.That(value, Is.Not.Null.And.Not.Empty);
+            Assert.IsNotNull(value);
+            Assert.IsTrue(value.Length > 0);
         }
 
-        [Test]
+        [TestMethod]
         public void Create_User_PropertiesFilled()
         {
             User user = faker.Create<User>();
-            Assert.That(user.Name, Is.Not.Null);
-            Assert.That(user.Age, Is.Not.EqualTo(0));
+            Assert.IsNotNull(user.Name);
+            Assert.AreNotEqual(0, user.Age);
         }
 
-        [Test]
+        [TestMethod]
         public void Create_ListOfUsers_ReturnsNonNull()
         {
             List<User> users = faker.Create<List<User>>();
-            Assert.That(users, Is.Not.Null);
+            Assert.IsNotNull(users);
         }
 
-        [Test]
+        [TestMethod]
         public void Create_ArrayOfInts_ReturnsNonNull()
         {
             int[] array = faker.Create<int[]>();
-            Assert.That(array, Is.Not.Null);
+            Assert.IsNotNull(array);
         }
 
-        [Test]
+        [TestMethod]
         public void RecursiveClass_NoStackOverflow()
         {
             A a = faker.Create<A>();
-            Assert.That(a, Is.Not.Null);
-            Assert.That(a.B?.C?.A, Is.Null);
+            Assert.IsNotNull(a);
+            Assert.IsNull(a.B?.C?.A);
         }
 
-        [Test]
+        [TestMethod]
         public void ConstructorSelection_UsesLargestPossible()
         {
             MultiCtor obj = faker.Create<MultiCtor>();
-            Assert.That(obj.UsedCtorWithMaxParams, Is.True);
+            Assert.IsTrue(obj.UsedCtorWithMaxParams);
         }
 
-        [Test]
+        [TestMethod]
         public void StructWithCustomCtor_UsesCustomCtor()
         {
             MyStruct s = faker.Create<MyStruct>();
-            Assert.That(s.CustomCtorUsed, Is.True);
+            Assert.IsTrue(s.CustomCtorUsed);
         }
 
-        [Test]
+        [TestMethod]
         public void CustomConfigForField_AppliesCustomGenerator()
         {
             var config = new FakerConfig();
             config.Add<Foo, string, FixedStringGenerator>(f => f.Bar);
             var customFaker = new Faker(config);
             Foo foo = customFaker.Create<Foo>();
-            Assert.That(foo.Bar, Is.EqualTo("fixed"));
+            Assert.AreEqual("fixed", foo.Bar);
         }
 
-        [Test]
+        [TestMethod]
         public void CustomConfigForImmutablePerson_UsesForConstructorParameter()
         {
             var config = new FakerConfig();
             config.Add<Person, string, FixedStringGenerator>(p => p.Name);
             var customFaker = new Faker(config);
             Person person = customFaker.Create<Person>();
-            Assert.That(person.Name, Is.EqualTo("fixed"));
+            Assert.AreEqual("fixed", person.Name);
         }
 
-        
+    
         public class User { public string Name { get; set; } public int Age { get; set; } }
         public class A { public B B { get; set; } }
         public class B { public C C { get; set; } }
