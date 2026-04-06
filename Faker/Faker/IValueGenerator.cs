@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-    internal interface IValueGenerator
+    public interface IValueGenerator
     {
         bool CanGenerate(Type type);
         object Generate(Type type, Faker faker, GenerationContext context);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-    internal class DoubleGenerator: IValueGenerator
+    public class DoubleGenerator: IValueGenerator
     {
         private static readonly Random Random = new Random();
         public bool CanGenerate(Type type) => type == typeof(double);

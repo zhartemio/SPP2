@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-    internal class StringGenerator: IValueGenerator
+    public class StringGenerator: IValueGenerator
     {
         private static readonly Random Random = new Random();
         private const string Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

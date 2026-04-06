@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-    internal class DateTimeGenerator: IValueGenerator
+    public class DateTimeGenerator: IValueGenerator
     {
         private static readonly Random Random = new Random();
         private static readonly DateTime Start = new DateTime(1970, 1, 1);

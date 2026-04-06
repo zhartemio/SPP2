@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-    internal class FakerConfig
+    public class FakerConfig
     {
         private readonly Dictionary<Type, Dictionary<MemberInfo, IValueGenerator>> _config = new Dictionary<Type, Dictionary<MemberInfo, IValueGenerator>>();
 

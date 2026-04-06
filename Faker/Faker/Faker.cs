@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Faker
 {
-    internal class Faker
+    public class Faker
     {
         private readonly List<IValueGenerator> _generators;
         private readonly FakerConfig _config;

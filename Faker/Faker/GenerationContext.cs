@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿
 using System;
 using System.Collections.Generic;
 
 
 namespace Faker
 {
-    internal class GenerationContext
+    public class GenerationContext
     {
         private readonly Stack<Type> _typeStack = new Stack<Type>();
 
